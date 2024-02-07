@@ -17,7 +17,7 @@ export class AuthService {
     const hashedPassword = await PasswordHelper.hashPassword(data.password);
 
     const registeredUser = await this.userRepo.save({
-      ...data,
+      email: data.email,
       password: hashedPassword,
     });
 

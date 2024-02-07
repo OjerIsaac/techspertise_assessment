@@ -1,21 +1,25 @@
-import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 import { AppModule } from './app.module';
 import { TransformInterceptor } from './interceptors';
-import { HttpExceptionFilter } from './filters';
 import { ValidationPipe } from './pipes';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('NestApplication');
 
-  app.enableCors();
+  const corsOptions: CorsOptions = {
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  };
+
+  app.enableCors(corsOptions);
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new TransformInterceptor());
-  app.useGlobalFilters(new HttpExceptionFilter());
 
   app.setGlobalPrefix('/api');
 

@@ -2,8 +2,8 @@ import { Injectable, Inject } from '@nestjs/common';
 import { ILike, Repository } from 'typeorm';
 import { BaseRepository } from '../../../database';
 import { USER_REPOSITORY } from '../user.constant';
-import { User } from '../entities';
 import { isEmail } from '../../../utils';
+import { User } from '../entities';
 
 @Injectable()
 export class UserRepository extends BaseRepository<User> {

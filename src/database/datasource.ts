@@ -2,7 +2,7 @@ import * as path from 'path';
 import { DataSource } from 'typeorm';
 import { env } from './database.env';
 
-export const dataSource = new DataSource({
+export const dataSource: DataSource = new DataSource({
   type: 'postgres',
   host: env.DB_HOST,
   port: +env.DB_PORT,

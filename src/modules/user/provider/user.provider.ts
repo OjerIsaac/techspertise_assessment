@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { DATA_SOURCE } from 'src/database';
+import { DATA_SOURCE } from '../../../database';
 import { USER_REPOSITORY } from '../user.constant';
 import { User } from '../entities';
 
