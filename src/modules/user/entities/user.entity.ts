@@ -1,8 +1,8 @@
 import { Column, Entity } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { BaseTable } from 'src/database';
+import { BaseTable } from '../../../database/base.entity';
 
-@Entity({ name: 'user' })
+@Entity({ name: 'users' })
 export class User extends BaseTable {
   @Column({ type: 'varchar', length: 50, nullable: true, unique: true })
   email: string;
