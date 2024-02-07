@@ -1,12 +1,11 @@
-### Nestjs Boilerplate 2
+### TECHSPERTISE ASSESSMENT
+- Implementation of a user registration and authentication system using NestJS and PostgreSQL. The goal is to create a secure mechanism for user registration, store user data in a PostgreSQL database, enable user authentication with the issuance of tokens, and host the project.
 
 ## Features
 - Completely written in [Typescript](https://typescriptlang.org/)
 - [Nestjs](https://docs.nestjs.com/) Nodejs framework
 - [Postgres](https://www.postgresql.org/docs/) Powerful, open source object-relational database
-- [MongoDB](https://www.mongodb.com/docs/manual/) A document database designed for ease of application development and scaling.
 - [TypeORM](https://typeorm.io/) ORM
-- [Mongoose](https://mongoosejs.com/) MongoDB object modeling
 
 #### RUN
 - clone repo
