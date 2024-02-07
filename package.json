@@ -36,7 +36,10 @@
     "cache:clear": "yarn typeorm cache:clear -d src/database/datasource.ts",
     "nest": "nest"
   },
-  "type": "module",
+  "resolutions": {
+    "wrap-ansi": "7.0.0",
+    "string-width": "4.1.0"
+  },
   "dependencies": {
     "@nestjs-modules/mailer": "^1.10.3",
     "@nestjs/cli": "^9.0.0",
