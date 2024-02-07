@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { EventEmitterModule } from '@nestjs/event-emitter';
 import { envVarsSchema } from './helpers';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './database';
@@ -10,7 +9,6 @@ import { JWT_SECRET } from './base/constants';
 
 @Module({
   imports: [
-    EventEmitterModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
