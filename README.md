@@ -20,3 +20,6 @@
 - new migration file will be created in `src/migrations`
 - edit the file to satisfaction
 - run `yarn run migrate` to migrate the table into the db
+
+#### Documentation
+- Postman [Documentaion link](https://documenter.getpostman.com/view/25225100/2s9YyzbcfG)
