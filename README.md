@@ -12,12 +12,11 @@
 - run `yarn install`
 - run mv .env.example .env
 - update the .env with local variables
-- run `yarn run prepare` to install git pre-hook
+- run `yarn run huskyprepare` to install git pre-hook
 - run `yarn run start:dev`
 
 #### Creating migration file
-- run `yarn run db:create <name of table/migration>`
-- new migration file will be created in the project root folder
-- move the migration file to the `src/migrations` folder
+- run `yarn run new:migration <name of table/migration>`
+- new migration file will be created in `src/migrations`
 - edit the file to satisfaction
-- run `yarn run db:migrate` to migrate the table into the db
+- run `yarn run migrate` to migrate the table into the db

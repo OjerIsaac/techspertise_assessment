@@ -1,63 +1,28 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { ErrorHelper, PasswordHelper } from '../../utils';
-import { RegisterUserDto, LoginAuthDto } from './dto';
-import { UserRepository } from '../user/repository';
-import { User } from '../user/entities';
+import { Injectable } from "@nestjs/common";
+import { User } from "../user/user.entity";
+import { comparePassword } from "../../lib/auth";
+import { JWTPayload } from "../../lib/types";
+import { JwtService } from "@nestjs/jwt";
+import { JwtSignOptions } from "@nestjs/jwt/dist/interfaces";
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly userRepo: UserRepository,
-    private jwtService: JwtService
-  ) {}
+    constructor(private readonly jwtService: JwtService) {}
 
-  async registerUser(data: RegisterUserDto) {
-    const emailExist = await this.userRepo.findByEmail(data.email);
+    async getUserToken(user: User, password: string) {
+        if (!comparePassword(password, user.password)) {
+            return null;
+        }
 
-    if (emailExist) {
-      ErrorHelper.ConflictException('Email already exist');
+        return this.getToken(user);
     }
 
-    const hashedPassword = await PasswordHelper.hashPassword(data.password);
+    async getToken(user: User, options?: JwtSignOptions) {
+        const payload: JWTPayload = {
+            email: user.email,
+            sub: user.id,
+        };
 
-    const registeredUser = await this.userRepo.save({
-      email: data.email,
-      password: hashedPassword,
-    });
-
-    return this.serializeUser(registeredUser);
-  }
-
-  private serializeUser(user: User) {
-    return {
-      email: user.email,
-      id: user.id,
-    };
-  }
-
-  private async signUserToken(user: User) {
-    const userInfo = this.serializeUser(user);
-
-    const token = this.jwtService.sign(userInfo);
-
-    return {
-      ...userInfo,
-      accessToken: token,
-    };
-  }
-
-  async login(data: LoginAuthDto) {
-    const registeredUser = await this.userRepo.findByEmail(data.email);
-
-    const isPasswordCorrect = registeredUser
-      ? await PasswordHelper.comparePassword(data.password, registeredUser.password)
-      : null;
-
-    if (!registeredUser || !isPasswordCorrect) {
-      ErrorHelper.BadRequestException('Email or password is incorrect');
+        return this.jwtService.sign(payload, options);
     }
-
-    return this.signUserToken(registeredUser);
-  }
 }

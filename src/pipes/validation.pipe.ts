@@ -1,15 +1,14 @@
-import { ValidationPipe as NestValidationPipe } from '@nestjs/common';
+import { Injectable, BadRequestException, ValidationPipe as DefaultValidationPipe } from "@nestjs/common";
 
-export class ValidationPipe extends NestValidationPipe {
-  constructor() {
-    super({
-      whitelist: true,
-      transform: true,
-      validationError: {
-        target: false,
-        value: false,
-      },
-      stopAtFirstError: false,
-    });
-  }
+@Injectable()
+export class ValidationPipe extends DefaultValidationPipe {
+    constructor() {
+        super({
+            stopAtFirstError: true,
+            transform: true,
+            whitelist: true,
+            disableErrorMessages: true,
+            exceptionFactory: () => new BadRequestException("Input Validation failed"),
+        });
+    }
 }
