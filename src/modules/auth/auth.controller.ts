@@ -4,7 +4,6 @@ import { CreateUserInput } from "../user/user.model";
 import { LoginUserInput } from "./auth.model";
 import { UserService } from "../user/user.service";
 import { AuthService } from "./auth.service";
-import { DateTime } from "luxon";
 
 @Controller({ path: "auth", version: "1" })
 export class AuthController {
@@ -48,18 +47,10 @@ export class AuthController {
             });
         }
 
-        return res
-            .status(HttpStatus.OK)
-            .cookie("token", token, {
-                httpOnly: false,
-                secure: true,
-                sameSite: "none",
-                expires: DateTime.now().plus({ hours: 3 }).toJSDate(),
-                path: "/",
-            })
-            .json({
-                message: "login successful",
-                statusCode: HttpStatus.OK,
-            });
+        return res.status(HttpStatus.OK).json({
+            message: "login successful",
+            token,
+            statusCode: HttpStatus.OK,
+        });
     }
 }
